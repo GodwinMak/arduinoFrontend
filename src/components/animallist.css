@@ -1,0 +1,20 @@
+.card{
+  padding: 30px;
+  margin-bottom: 30px;
+  background-color: var(--main-bg);
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-radius);
+}
+
+.card__header{
+  text-transform: capitalize;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card > div ~ div{
+  margin-top: 30px;
+}
