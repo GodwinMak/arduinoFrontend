@@ -122,7 +122,7 @@ console.log(isEmpty(newData));
   return (
     <Container>
         <div>
-        <h3>Tranking {rhinoName} </h3>
+        <h3>Tracking {rhinoName} </h3>
               <Card className="text-center">
                   <Card.Body style={{height: "500px"}} >
                     {
