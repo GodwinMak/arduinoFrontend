@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useContext } from "react";
-import mapboxgl from "mapbox-gl";
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import mapboxgl from "!mapbox-gl";
 import "./Map.css";
 import {AppContext} from '../components/context/appContext'
 
