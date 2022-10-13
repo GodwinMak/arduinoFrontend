@@ -75,7 +75,7 @@ console.log(isEmpty(newData));
 
   const getAnimalData = async (cbsf, cbef) => {
     try {
-      const response = await fetch("http://localhost:5003/api/v1/getdata", {
+      const response = await fetch("https://gpsarduinoproject.herokuapp.com/api/v1/getdata", {
         method: "GET",
         headers: {
           'Content-Type': 'application/json'
