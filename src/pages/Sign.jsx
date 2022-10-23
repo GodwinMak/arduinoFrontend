@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
 import { ToastContainer, toast } from "react-toastify"
-import { Button } from "react-bootstrap"
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios'
 import { signRoute } from '../utills/APIRoute';
+import Avatar from '../assets/images/Avatar.png'
 
 
 
@@ -73,58 +73,56 @@ const Sign = () => {
     }
   return (
       <div className="form__container">
-          <div className='form__container__card'>
-              <form onSubmit={(event) => handleSign(event)} className='form__container__card-form'>
+          <div className="loginbox">
+              <img src={Avatar} alt='' className='avatar' />
+              <h1 className='title'>Sign in here</h1>
+              <form onSubmit={(event) => handleSign(event)}>
                   <div>
-                      <label htmlFor='username'>User Name</label>
+                      <p>User Name</p>
                       <input
-                          className='input-box'
                           type='text'
                           name='username'
-                          placeholder='username'
+                          placeholder='Enter user name'
                           onChange={(event) => handleChange(event)}
                       />
                   </div>
                   <div>
-                      <label htmlFor='email'>Email</label>
+                      <p>Email</p>
                       <input
-                          className='input-box'
                           type='email'
                           name='email'
-                          placeholder='Email'
+                          placeholder='Enter Your Email'
                           onChange={(event) => handleChange(event)}
                       />
                   </div>
-                  
                   <div>
-                      <label htmlFor='password'>Password</label>
+                      <p>Password</p>
                       <input
-                          className='input-box'
                           type='password'
                           name='password'
-                          placeholder='Password'
+                          placeholder='Enter password'
                           onChange={(event) => handleChange(event)}
                       />
                   </div>
                   <div>
-                      <label htmlFor='confirmPassword'>Password</label>
+                      <p>Confrim Password</p>
                       <input
-                          className='input-box'
                           type='password'
                           name='confirmPassword'
-                          placeholder='Confrim Password'
+                          placeholder='Confirm password'
                           onChange={(event) => handleChange(event)}
                       />
                   </div>
-                  <Button variant="success" type="submit">Sign Up</Button>
+                  <div>
+                      <input type='submit' value='Sign in' />
+                  </div>
                   <div>
                       <p className="">
-                          Don't have an account ? <Link to="/">Login</Link>
+                          I have an account ? <Link to="/">Login</Link>
                       </p>
                   </div>
               </form>
           </div>
-
           <ToastContainer />
       </div>
   )

@@ -20,6 +20,7 @@ function App() {
   const [coordinat, setCoordinat] = useState([]);
   const [loading, setLoading] = useState(false) // creating loading state
   const [isMaploading, setIsMaploading] = useState(false);
+  const [currentUser, setCurrentUser] = useState([]);
 
   return (
     <AppContext.Provider
@@ -31,20 +32,22 @@ function App() {
         newData, setNewData,
         coordinat, setCoordinat,
         loading, setLoading,
-        isMaploading, setIsMaploading
+        isMaploading, setIsMaploading,
+        currentUser, setCurrentUser
       }}
     >      
-      <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Login/>}/>
-            <Route path='/sign' element={<Sign/>}/>
-            <Route path="/dashboard" element={<Dashboard/>} > 
-              <Route path= '/dashboard' element={<AnimalList/>}/>
-              <Route path='/dashboard/map' element={<Maps/>}/>
+     <BrowserRouter>
+         <Routes>
+           <Route path="/" element={<Login/>}/>
+           <Route path='/sign' element={<Sign/>}/>
+           <Route path="/dashboard" element={<Dashboard/>} > 
+             <Route path= '/dashboard' element={<AnimalList/>}/>
+             <Route path='/dashboard/map' element={<Maps/>}/>
             </Route>
           </Routes>
-      </BrowserRouter>
+     </BrowserRouter>
     </AppContext.Provider>
+
   );
 }
 

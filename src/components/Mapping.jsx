@@ -4,8 +4,6 @@ import mapboxgl from "!mapbox-gl";
 import "./Map.css";
 import {AppContext} from '../components/context/appContext'
 
-
-
 mapboxgl.accessToken ="pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA";
 
 const Map = ({ Animal, newDataAnimal }) => {
@@ -15,8 +13,6 @@ const Map = ({ Animal, newDataAnimal }) => {
   let longitude;
    const latestDateTimesByDate = {};
   const { setCoordinat, coordinat } = useContext(AppContext);
-    // new Date(Math.max(...Animal.map(e => new Date(e.MeasureDate))));
-
 
   const isEmpty = (obj) => {
     for (var prop in obj) {
@@ -25,19 +21,15 @@ const Map = ({ Animal, newDataAnimal }) => {
     }
     return true;
   }
-   
   if(!isEmpty(Animal)){
     Animal.forEach(di => {
-
-      //   // Use the date part of the date time as a key/ property name on the latestDateTimesByDate object
+         // Use the date part of the date time as a key/ property name on the latestDateTimesByDate object
       let dateKey = di.MeasureDate.substring(0, 10);
       // If that date key doesnt exist or the current MeasureDate  is gretaer than the recorded one
       if (!latestDateTimesByDate[dateKey] || di.MeasureDate > latestDateTimesByDate[dateKey].MeasureDate) {
         latestDateTimesByDate[dateKey] = di;
       }
-
     });
-    console.log(latestDateTimesByDate);
     // if you need it as an array then add each of the date properties to an element of an array
     const finalArray = [];
     Object.keys(latestDateTimesByDate).forEach(key => finalArray.push(latestDateTimesByDate[key]));
@@ -56,7 +48,6 @@ const Map = ({ Animal, newDataAnimal }) => {
       longitude = newDataAnimal.longitude;
     }
   }
-
     Data = {
       "features": [
         {
@@ -72,37 +63,10 @@ const Map = ({ Animal, newDataAnimal }) => {
         }
       ],
       "type": "FeatureCollection"
-    }
-  
-
-  //     Data = {
-  //       "features": [
-  //         {
-  //           "type": "Feature",
-  //           "properties": {
-  //             "title": title,
-  //             "description": "A Game Reserve nearby Sereget National park"
-  //           },
-  //           "geometry": {
-  //             "coordinates": [longitude, latitude],
-  //             "type": "Point"
-  //           }
-  //         }
-  //       ],
-  //       "type": "FeatureCollection"
-  //     }
-  //   }
-  // }
-    
-  
-
-    
+    } 
 useEffect(() => {
   setCoordinat([longitude, latitude])
 }, [longitude, latitude, setCoordinat]);
-
-
-
 
   const mapContainerRef = useRef(null);
   //Initialize map when component mounts

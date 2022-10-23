@@ -1,13 +1,14 @@
 import React, {useState} from 'react'
 import { AiOutlineMenu } from "react-icons/ai";
 import { FaMoneyBillAlt } from "react-icons/fa";
-// import { HiDocumentReport } from "react-icons/hi"
+import { AiOutlineLogout } from "react-icons/ai"
 import {Menu, MenuItem, ProSidebar, SidebarHeader} from 'react-pro-sidebar'
 import "react-pro-sidebar/dist/css/styles.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Sidebar = ({setShow, show}) => {
     const [collapsed , setCollapsed] = useState(false);
+    const navigate = useNavigate();
     // added styles 
     const styles = {
         sideBarHeight: {
@@ -32,6 +33,11 @@ const Sidebar = ({setShow, show}) => {
             setShow(true)
         }
     };
+
+    const handleClick = async () => {
+        localStorage.removeItem('map-user');
+        navigate('/')
+    }
   return (
       <ProSidebar style={styles.sideBarHeight} collapsed={collapsed}>
           <SidebarHeader>
@@ -44,9 +50,9 @@ const Sidebar = ({setShow, show}) => {
                   Animal List
                   <Link to='/dashboard' />
               </MenuItem>
-              {/* <MenuItem icon={<AiOutlineLogout />} onClickCapture={handleClick}>
+              <MenuItem icon={<AiOutlineLogout />} onClickCapture={handleClick}>
                   Logout
-              </MenuItem> */}
+              </MenuItem>
           </Menu>
       </ProSidebar>
   )
