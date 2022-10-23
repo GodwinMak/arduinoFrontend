@@ -11,6 +11,9 @@ import Avatar from '../assets/images/Avatar.png'
 const Login = () => {
 
     const navigate = useNavigate();
+
+    const [isLoading, setIsLoading] = useState(true);
+
     const toastOptions = {
         position: 'bottom-right',
         autoClose: 8000,
@@ -46,16 +49,21 @@ const Login = () => {
         event.preventDefault();
         if (handleValidation()) {
             const { username, password } = values;
+
+            setIsLoading(false) // set loading to false when sending request
+            
             const { data } = await axios.post(loginRoute, {
                 username,
                 password
             });
+
             if (data.status === false) {
                 toast.error(data.msg, toastOptions)
             }
             if (data.status === true) {
-                localStorage.setItem('map-user', JSON.stringify(data.user))
+                localStorage.setItem('map-user', JSON.stringify(data.animalControlUser.username))
                 navigate("/dashboard");
+
             }
         };
 
@@ -86,7 +94,7 @@ const Login = () => {
                     />
                 </div>
                 <div>
-                    <input type='submit' value='Login'/>
+                    <input type='submit' value={isLoading ? 'Login' : 'Login in...'} />
                 </div>
                   <div>
                       <p className="">

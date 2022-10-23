@@ -8,6 +8,7 @@
 
 .maincontent{
     padding-left: 20px;
+    overflow: hidden;
     width: calc(100vw - 270px);
     left: 270px;
     position: absolute;

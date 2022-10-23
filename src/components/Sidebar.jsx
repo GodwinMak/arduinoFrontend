@@ -23,7 +23,7 @@ const Sidebar = ({setShow, show}) => {
             margin: "10px",
         },
         logoutMenuIcon: {
-            position: "fixed",
+            position: "absolute",
             bottom: "0",
         }
     };

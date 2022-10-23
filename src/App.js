@@ -1,11 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import Maps from './components/Maps';
+import Maps from './components/map/Maps';
 import Login from "./pages/Login"
 import Sign from "./pages/Sign"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from './pages/Dashboard';
-import AnimalList from './components/AnimalList';
+import AnimalList from './components/animalList/AnimalList';
 import React, { useState} from 'react'
 import {AppContext} from './components/context/appContext'
 

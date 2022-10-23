@@ -66,7 +66,7 @@ const Sign = () => {
                 toast.error(data.msg, toastOptions)
             }
             if (data.status === true) {
-                localStorage.setItem('map-user', JSON.stringify(data.user))
+                localStorage.setItem('map-user', JSON.stringify(data.animalControlUser.username))
                 navigate("/dashboard");
             }
         };
