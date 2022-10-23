@@ -1,7 +1,8 @@
+
 import React, { useEffect, useContext } from 'react'
 // import './animallist.css'
 import Table from '../table/Table';
-import { Button, Row, Col } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../context/appContext';
 

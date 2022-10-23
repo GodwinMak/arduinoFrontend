@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import {  Container,  Card } from 'react-bootstrap'
+import {Card } from 'react-bootstrap'
 import Mapping from './Mapping';
 import { AppContext } from '../context/appContext';
 import './Map.css'
