@@ -8,25 +8,25 @@ import { AppContext } from './context/appContext';
 
 const AnimalList = () => {
 
-    const { 
-        animalData, setAnimalData, 
-        animal_names, setAnimal_names, 
-        animal_name, setAnimal_name, 
+    const {
+        animalData, setAnimalData,
+        animal_names, setAnimal_names,
+        animal_name, setAnimal_name,
         setRhinoName,
-         setLoading, loading
-        } =  useContext(AppContext); // user context from app.js 
+        setLoading, loading
+    } = useContext(AppContext); // user context from app.js 
     const navigate = useNavigate();
-    
+
     // feching data from the database........
     useEffect(() => {
-        const fetchData = async()=>{
+        const fetchData = async () => {
             setLoading(true);
             getAnimalData(
-                (data) =>{
+                (data) => {
                     setAnimalData(data);
                     setLoading(false);
                 },
-                (error) =>{
+                (error) => {
                     console.log(error);
                     setLoading(false);
                 }
@@ -35,11 +35,11 @@ const AnimalList = () => {
         fetchData();
     }, [setAnimalData, setLoading]);
 
-    const getAnimalData = async (cbsf, cbef)=>{
+    const getAnimalData = async (cbsf, cbef) => {
         try {
-            const response = await fetch(`https://gpsarduinoproject.herokuapp.com/api/v1/getdata`,{
+            const response = await fetch(`https://gpsarduinoproject.herokuapp.com/api/v1/getdata`, {
                 method: "GET",
-                headers:{
+                headers: {
                     'Content-Type': 'application/json'
                 }
             });
@@ -52,10 +52,10 @@ const AnimalList = () => {
 
     // taking rhinonames in order to make a list from data fetched from the data base
     useEffect(() => {
-            setAnimal_names(animalData.map((data, _id) => {
-                return data.objectName;
-            }));        
-       
+        setAnimal_names(animalData.map((data, _id) => {
+            return data.objectName;
+        }));
+
     }, [setAnimal_names, animalData]);
 
     //sorting and removing the redudunce from  names of rhinos
@@ -69,8 +69,8 @@ const AnimalList = () => {
     const renderOrderBody = (item, index) => {
         const onClick = (event) => {
             event.preventDefault();
-            let tempName =animalData.filter(data => data.objectName === item).map(datum => datum.objectName);
-            setRhinoName(tempName.filter((c, pos)=>{return tempName.indexOf(c) === pos;}));
+            let tempName = animalData.filter(data => data.objectName === item).map(datum => datum.objectName);
+            setRhinoName(tempName.filter((c, pos) => { return tempName.indexOf(c) === pos; }));
             setAnimalData([]);
             navigate('/dashboard/map');
         }
@@ -78,34 +78,34 @@ const AnimalList = () => {
             <tr key={index}>
                 <td>{item}</td>
                 <td>
-                    <Button variant='success' onClick={(event)=> onClick(event)}>View Location</Button>
+                    <Button variant='success' onClick={(event) => onClick(event)}>View Location</Button>
                 </td>
             </tr>
         )
     }
 
-  return (
-  <>
-        {
-        !loading ? 
-            <Row>
-            <Col md={10}>
-                <div className='card'>
-                    <div className='card_header'>
-                        <h3>Animal List</h3>
-                    </div>
-                    <div className="card-body">
-                        <Table
-                            bodyData={animal_name}
-                            renderBody={(item, index) => renderOrderBody(item, index)}
-                        />
-                    </div>
-                </div>
-            </Col>
-            </Row>: <div> Table loading</div>
-        }
-      </>
-  )
+    return (
+        <>
+            {
+                !loading ?
+                    <Row>
+                        <Col md={10}>
+                            <div className='card'>
+                                <div className='card_header'>
+                                    <h3>Animal List</h3>
+                                </div>
+                                <div className="card-body">
+                                    <Table
+                                        bodyData={animal_name}
+                                        renderBody={(item, index) => renderOrderBody(item, index)}
+                                    />
+                                </div>
+                            </div>
+                        </Col>
+                    </Row> : <div> Table loading</div>
+            }
+        </>
+    )
 }
 
 export default AnimalList

@@ -3,9 +3,9 @@ import { ToastContainer, toast } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 import { Link, useNavigate } from "react-router-dom";
 import "./login.css"
-import {Button} from "react-bootstrap"
 import axios from 'axios'
 import { loginRoute } from "../utills/APIRoute"
+import Avatar from '../assets/images/Avatar.png'
 
 
 const Login = () => {
@@ -61,42 +61,41 @@ const Login = () => {
 
     }
 
-
-
   return (
-      <div className= "form__container">
-        <div className='form__container__card'>
-              <form onSubmit={(event) => handleLogin(event)} className='form__container__card-form'>
+    <div className= "form__container">
+        <div className="loginbox">
+            <img src={Avatar} alt='' className='avatar'/>
+            <h1 className='title'>Login here</h1>
+            <form onSubmit={(event) => handleLogin(event)}>
                 <div>
-                    <label htmlFor='username'>User Name</label>
-                    <input
-                        className='input-box'
+                    <p>User Name</p>
+                    <input 
                         type='text'
                         name='username'
-                        placeholder='username'
+                        placeholder='Enter user name'
                         onChange={(event) => handleChange(event)}
                     />
                 </div>
                 <div>
-                    <label htmlFor='password'>Password</label>
+                    <p>Password</p>
                     <input
-                        className='input-box'
                         type='password'
                         name='password'
-                        placeholder='Password'
+                        placeholder='Enter password'
                         onChange={(event) => handleChange(event)}
                     />
                 </div>
-                <Button variant="success" type="submit">Login</Button>
                 <div>
-                    <p className="">
-                        Don't have an account ? <Link to="/sign">Signup</Link>
-                    </p>
+                    <input type='submit' value='Login'/>
                 </div>
+                  <div>
+                      <p className="">
+                          Don't have an account ? <Link to="/sign">Sign In</Link>
+                      </p>
+                  </div>
             </form>
         </div>
-          
-    <ToastContainer/>
+        <ToastContainer/>
     </div>
     )
 }

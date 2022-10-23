@@ -12,7 +12,6 @@ import { createBrowserHistory } from "history";
 const Maps = () => {
 
   // declaring variables
-  
   let Animal, newDataAnimal;
 
   const { 
@@ -20,7 +19,7 @@ const Maps = () => {
     setNewData, newData } =useContext(AppContext);
 
     // connect the front end and backend via socket.io-client
-  const socket = io.connect("http://localhost:5003/api/socket");
+  const socket = io.connect("https://gpsarduinoproject.herokuapp.com/api/socket");
 
   //getting any new data that be posted to the server
   useEffect(() => {
@@ -37,9 +36,6 @@ const Maps = () => {
     return true;
   }
 
-console.log(isEmpty(newData));
-
-
   // getting the current animal name that is being tracked
   const history = createBrowserHistory();
   useEffect(() => {
@@ -53,8 +49,6 @@ console.log(isEmpty(newData));
   useEffect(() => {
     history.push(`?rhinoName=${rhinoName}`);
   }, [rhinoName, history]);
-
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -88,12 +82,8 @@ console.log(isEmpty(newData));
     }
   };
 
-  
-  console.log(isMaploading)
-
-
-  // single animal tracking current state before any update;
   if(!isMaploading){
+  // single animal tracking current state before any update;
     if(isEmpty(newData)){
       Animal = animalData.filter(d => d.objectName === rhinoName).map((datum, _id) => {
         return (
@@ -106,6 +96,7 @@ console.log(isEmpty(newData));
         )
       })
     }
+    //after update........
     else{
        newDataAnimal = {
         "title": newData.objectName,
@@ -115,10 +106,12 @@ console.log(isEmpty(newData));
       }
     }
   } 
-
-  console.log(Animal)
-  // console.log(newDataAnimal)
-
+/*
+// all animal current state before any update
+  if(!isEmpty(newData)){
+    Animals = animalData
+  }
+*/
   return (
     <Container>
         <div>
@@ -126,7 +119,7 @@ console.log(isEmpty(newData));
               <Card className="text-center">
                   <Card.Body style={{height: "500px"}} >
                     {
-                      !isMaploading ? <Mapping Animal={Animal} newDataAnimal= {newDataAnimal}/>: <div>map is loading</div>
+                      !isMaploading ? <Mapping Animal={Animal} newDataAnimal= {newDataAnimal}/> : <div>map is loading</div>
                     }
                   </Card.Body>
               </Card>
