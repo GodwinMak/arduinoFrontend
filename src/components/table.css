@@ -2,7 +2,7 @@
     overflow-y: auto;
 }
 
-table{
+/* table{
     width: 100%;
     min-width: 400px;
     border-spacing: 0;
@@ -58,4 +58,4 @@ tbody > tr:hover{
 .table__pagination-item:hover{
     color: #fff;
     background-color: #62b4ff;
-}
+} */

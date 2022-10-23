@@ -33,7 +33,7 @@ const Table = (props) => {
     return (
         <div>
             <div className="table-wrapper">
-                <table>
+                <table className='table table-striped'>
                     {
                         props.headData && props.renderHead ? (
                             <thead>

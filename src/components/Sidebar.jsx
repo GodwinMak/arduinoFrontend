@@ -22,6 +22,10 @@ const Sidebar = ({setShow, show}) => {
             float: "right",
             margin: "10px",
         },
+        logoutMenuIcon: {
+            position: "fixed",
+            bottom: "0",
+        }
     };
     const onClickMenuIcon = () => {
         setCollapsed(!collapsed);
@@ -50,7 +54,7 @@ const Sidebar = ({setShow, show}) => {
                   Animal List
                   <Link to='/dashboard' />
               </MenuItem>
-              <MenuItem icon={<AiOutlineLogout />} onClickCapture={handleClick}>
+              <MenuItem style={styles.logoutMenuIcon} icon={<AiOutlineLogout />} onClickCapture={handleClick}>
                   Logout
               </MenuItem>
           </Menu>
