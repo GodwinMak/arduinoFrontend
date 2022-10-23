@@ -1,5 +1,5 @@
 import React, { useEffect, useContext} from 'react'    
-import { Link, Navigate, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import avatar2 from '../../assets/images/avatar2.png'
 import { AppContext }from '../context/appContext'
 import {AiOutlineLogout} from "react-icons/ai"
@@ -30,7 +30,7 @@ const SideNav = () => {
     <div>
         <aside className="main-sidebar sidebar-dark-primary elevation-4">
         {/* Brand Logo */}
-        <a href="#" className="brand-link">
+        <a href="!#" className="brand-link">
             <span className="brand-text font-weight-light">Animal Tracking</span>
         </a>
         {/* Sidebar */}
@@ -38,10 +38,10 @@ const SideNav = () => {
             {/* Sidebar user panel (optional) */}
             <div className="user-panel mt-3 pb-3 mb-3 d-flex">
             <div className="image">
-                <img src={avatar2} className="img-circle elevation-2" alt="User Image" />
+                <img src={avatar2} className="img-circle elevation-2" alt="User" />
             </div>
             <div className="info">
-                <a href="#" className="d-block">{currentUser}</a>
+                <a href="!#" className="d-block">{currentUser}</a>
             </div>
             </div>
             {/* Sidebar Menu */}
