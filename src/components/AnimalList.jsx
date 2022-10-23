@@ -5,6 +5,9 @@ import { Button, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from './context/appContext';
 
+// Spinner for loading animation
+import ClipLoader from "react-spinners/ClipLoader";
+
 
 const AnimalList = () => {
 
@@ -85,7 +88,7 @@ const AnimalList = () => {
     }
 
   return (
-  <>
+    <>
         {
         !loading ? 
             <Row>
@@ -96,15 +99,16 @@ const AnimalList = () => {
                     </div>
                     <div className="card-body">
                         <Table
+                            headerData={['name', 'action']} // table header data??
                             bodyData={animal_name}
                             renderBody={(item, index) => renderOrderBody(item, index)}
                         />
                     </div>
                 </div>
             </Col>
-            </Row>: <div> Table loading</div>
+            </Row>: <ClipLoader color={"#123abc"} loading={loading} size={150} />
         }
-      </>
+    </>
   )
 }
 

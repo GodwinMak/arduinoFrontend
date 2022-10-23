@@ -5,6 +5,9 @@ import { AppContext } from './context/appContext';
 import './Map.css'
 import io from "socket.io-client";
 
+// Spinner for loading animation
+import ClipLoader from "react-spinners/ClipLoader";
+
 
 import qs from "qs";
 import { createBrowserHistory } from "history";
@@ -126,7 +129,8 @@ console.log(isEmpty(newData));
               <Card className="text-center">
                   <Card.Body style={{height: "500px"}} >
                     {
-                      !isMaploading ? <Mapping Animal={Animal} newDataAnimal= {newDataAnimal}/>: <div>map is loading</div>
+                      // !isMaploading ? <Mapping Animal={Animal} newDataAnimal= {newDataAnimal}/>: <div>map is loading</div>
+                      !isMaploading ? <Mapping Animal={Animal} newDataAnimal= {newDataAnimal}/>: <ClipLoader color={"#123abc"} loading={isMaploading} size={150} />
                     }
                   </Card.Body>
               </Card>
