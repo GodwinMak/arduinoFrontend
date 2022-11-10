@@ -61,15 +61,12 @@ const SideNav = () => {
 
                 <li className="nav-item">
                 <Link to="#" className="nav-link" onClickCapture={handleClick}>
-                    <AiOutlineLogout className='nav-icon'/>
+                    <AiOutlineLogout className='nav-icon' style={{postion: "absolute", buttom: "0"}}/>
                     <p>
-                    Log Out
+                      Log Out
                     </p>
                 </Link>
                 </li>
-                
-
-
             </ul>
             </nav>
             {/* /.sidebar-menu */}

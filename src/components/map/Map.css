@@ -4,6 +4,7 @@
   bottom: 0;
   left: 0;
   right: 0;
+  width: 100%;
 }
 .sidebarStyle {
   display: inline-block;
@@ -16,4 +17,12 @@
   z-index: 1 !important;
   padding: 6px;
   font-weight: bold;
+}
+
+.menu-map-style{
+position: absolute;
+background: #efefef;
+padding: 10px;
+font-family: 'Open Sans', sans-serif;
+z-index: 99;
 }

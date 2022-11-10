@@ -94,6 +94,8 @@ const Maps = () => {
             "title": datum.objectName,
             "latitude": datum.latitude,
             "longitude": datum.longitude,
+            "speed": datum.speed,
+            "altitude": datum.altitude,
             "MeasureDate": datum.createAt
           }
         )
@@ -105,6 +107,8 @@ const Maps = () => {
         "title": newData.objectName,
         "latitude": newData.latitude,
         "longitude": newData.longitude,
+        "speed": newData.speed,
+        "altitude": newData.altitude,
          "MeasureDate": newData.MeasureDate
       }
     }
