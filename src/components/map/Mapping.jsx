@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useContext } from "react";
+import React, { useRef, useEffect, useContext, useState } from "react";
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import mapboxgl from "!mapbox-gl";
 import "./Map.css";
@@ -60,11 +60,11 @@ const Map = ({ Animal, newDataAnimal }) => {
           "type": "Feature",
           "properties": {
             "description": `<p>
-                        <strong>${title}</strong> 
-                        with at position <strong>${longitude}</strong> longitude, 
-                        <strong>${latitude}</strong> latitude 
-                        at a speed of <strong>${speed}m/s</strong> 
-                        at alitude of <strong>${altitude}m</strong>
+                        <strong>Target: ${title}</strong><br/> 
+                        <strong>Location: ${longitude}</strong>, 
+                        <strong>${latitude}</strong>,<br/> 
+                        <strong>Speed: ${speed}m/s</strong><br/> 
+                        <strong>Altitude: ${altitude}m</strong>
             </p>`
           },
           "geometry": {
@@ -80,6 +80,19 @@ useEffect(() => {
 }, [longitude, latitude, setCoordinat]);
 
   const mapContainerRef = useRef(null);
+
+  // map style
+  const [value, setValue] =useState("");
+  // useEffect(() => {
+    const onChangeValue = (e) => {
+      e.preventDefault()
+      setValue(e.target.value);
+    }
+    // onChangeValue();
+  // }, []);
+  console.log(value)
+  
+  
   //Initialize map when component mounts
   useEffect(() => {
     setTimeout(()=>{
@@ -97,13 +110,6 @@ useEffect(() => {
 
     map.on("load",   () => {
       //Add an image to use as a custom marker
-      // map.loadImage(
-        // "https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png",
-        //  (error, image) => {
-          // if (error) throw error;
-          // map.addImage("custom-marker", image);
-          //Add a GeoJSON source with multiple points
-      
           map.addSource("places", {
             type: "geojson",
             data: {
@@ -124,21 +130,6 @@ useEffect(() => {
              }
            });
 
-          // map.addLayer({
-          //   id: "points",
-          //   type: "symbol",
-          //   source: "points",
-          //   layout: {
-          //     "icon-image": "custom-marker",
-          //     //get the title name from the source's "title" property
-          //     "text-field": ["get", "title"],
-          //     "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-          //     "text-offset": [0, 1.25],
-          //     "text-anchor": "top",
-          //   },
-          // });
-        // }
-      // );
 
       // Create a popup, but don't add it to the map yet.
       const popup = new mapboxgl.Popup({
@@ -173,37 +164,26 @@ useEffect(() => {
     });
     //Add navigation control (the +/- zoom buttons)
     map.addControl(new mapboxgl.NavigationControl(), "top-right");
-
-    const layerList = document.getElementById('menu');
-    const inputs = layerList.getElementsByTagName('input');
-
-
-      for (const input of inputs) {
-        input.onclick = (layer) => {
-          // map.remove();
-          const layerId = layer.target.id;
-          map.setStyle('mapbox://styles/mapbox/' + layerId);
-        };
-      }
+    map.setStyle('mapbox://styles/mapbox/' + value);
 
     //Clean up on unmount
     return () => map.remove();
     }, 5000)
  
-  }, [Data.features, coordinat]);
+  }, [Data.features, coordinat, value]);
   
   const MapChoice = ()=>{
     return(
-      <div id="menu" className="menu-map-style">
-        <input id="satellite-streets-v11" type="radio" name="rtoggle" value="satellite" defaultChecked={true} />
+      <div id="menu" className="menu-map-style" >
+        <input type="radio" name="satellite" value="satellite-streets-v11" checked={value === "satellite-streets-v11"} onChange={(event) => onChangeValue(event)} />
         <label htmlFor="satellite-streets-v11">satellite</label>
-        <input id="light-v10" type="radio" name="rtoggle" value="light" />
+        <input type="radio" name="light" value="light-v10" checked={value === "light-v10"} onChange={(event) => onChangeValue(event)} />
         <label htmlFor="light-v10">light</label>
-        <input id="dark-v10" type="radio" name="rtoggle" value="dark" />
+        <input type="radio" name="dark" value="dark-v10" checked={value === "dark-v10"} onChange={(event) => onChangeValue(event)} />
         <label htmlFor="dark-v10">dark</label>
-        <input id="streets-v11" type="radio" name="rtoggle" value="streets" />
+        <input type="radio" name="streets" value="streets-v11" checked={value === "streets-v11"} onChange={(event) => onChangeValue(event)} />
         <label htmlFor="streets-v11">streets</label>
-        <input id="outdoors-v11" type="radio" name="rtoggle" value="outdoors" />
+        <input type="radio" name="outdoors" value="outdoors-v11" checked={value === "outdoors-v11"} onChange={(event) => onChangeValue(event)} />
         <label htmlFor="outdoors-v11">outdoors</label>
       </div>
     )
