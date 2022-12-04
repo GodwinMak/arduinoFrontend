@@ -1,19 +1,18 @@
 import React, { useEffect, useContext} from 'react'    
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import avatar2 from '../../assets/images/avatar2.png'
 import { AppContext }from '../context/appContext'
 import {AiOutlineLogout} from "react-icons/ai"
 const SideNav = () => {
     const { setCurrentUser, currentUser } = useContext(AppContext);
-    const navigate = useNavigate();
 
   useEffect(() => {
     const fetchItem = async () => {
-      if (!localStorage.getItem("map-user")) {
+      if (!localStorage.getItem("user")) {
 
 
       } else {
-        setCurrentUser(await JSON.parse(localStorage.getItem("map-user")))
+        setCurrentUser( (localStorage.getItem("user")))
       }
     }
 
@@ -21,9 +20,9 @@ const SideNav = () => {
   }, [ setCurrentUser]);
 
   const handleClick = async()=>{
-    localStorage.removeItem("map-user")
+    localStorage.removeItem("token")
+    window.location.reload();
     setCurrentUser(null);
-    navigate('/')
   }
 
   return (

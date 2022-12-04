@@ -1,19 +1,15 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { ToastContainer, toast } from "react-toastify"
-import 'react-toastify/dist/ReactToastify.css';
-import { Link, useNavigate } from "react-router-dom";
-import "./login.css"
+import { Link } from "react-router-dom";
 import axios from 'axios'
-import { loginRoute } from "../utills/APIRoute"
+import { loginRoute } from '../utills/APIRoute';
 import Avatar from '../assets/images/Avatar.png'
+import './login.css'
+
 
 
 const Login = () => {
-
-    const navigate = useNavigate();
-
     const [isLoading, setIsLoading] = useState(true);
-
     const toastOptions = {
         position: 'bottom-right',
         autoClose: 8000,
@@ -27,84 +23,89 @@ const Login = () => {
         password: "",
     })
 
-    const handleChange = (event) => {
-        setValues({ ...values, [event.target.name]: event.target.value });
-
+    const handleChange = ({ currentTarget: input }) => {
+        setValues({ ...values, [input.name]: input.value });
     }
+
+   
     const handleValidation = () => {
-        const { password, username, } = values;
+        const { password, username } = values;
         if (password === "") {
-            toast.error("Registration number and password is required", toastOptions)
+            toast.error("Password is required", toastOptions)
             return false;
-        } else if (username.length === "") {
+        } 
+        else if (username.length === "") {
             toast.error(
-                "Registration number and password is required", toastOptions
+                "user name is required", toastOptions
             );
             return false;
         }
         return true
     }
 
+    const [error, setError] = useState("")
     const handleLogin = async (event) => {
         event.preventDefault();
-        if (handleValidation()) {
-            const { username, password } = values;
-
-            setIsLoading(false) // set loading to false when sending request
-            
-            const { data } = await axios.post(loginRoute, {
-                username,
-                password
-            });
-
-            if (data.status === false) {
-                toast.error(data.msg, toastOptions)
+        try {
+            if (handleValidation()) {
+                const { username, password} = values;
+                setIsLoading(false);
+                const { data: res } = await axios.post(loginRoute, {
+                    username,
+                    password,
+                });
+                localStorage.setItem("token", res.data);
+                console.log(res.data);
+                localStorage.setItem("user", username);
+                window.location ="/dashboard"
             }
-            if (data.status === true) {
-                localStorage.setItem('map-user', JSON.stringify(data.animalControlUser.username))
-                navigate("/dashboard");
-
+        } catch (error) {
+            if (error.response && error.response.status >= 400 && error.response.status <= 500) {
+                setError(error.response.data.message);
             }
-        };
-
+        }
+        if (error) {
+            toast.error(error, toastOptions)
+        }
     }
-
-  return (
-    <div className= "form__container">
-        <div className="loginbox">
-            <img src={Avatar} alt='' className='avatar'/>
-            <h1 className='title'>Login here</h1>
-            <form onSubmit={(event) => handleLogin(event)}>
-                <div>
-                    <p>User Name</p>
-                    <input 
-                        type='text'
-                        name='username'
-                        placeholder='Enter user name'
-                        onChange={(event) => handleChange(event)}
-                    />
-                </div>
-                <div>
-                    <p>Password</p>
-                    <input
-                        type='password'
-                        name='password'
-                        placeholder='Enter password'
-                        onChange={(event) => handleChange(event)}
-                    />
-                </div>
-                <div>
-                    <input type='submit' value={isLoading ? 'Login' : 'Login in...'} />
-                </div>
-                  <div>
-                      <p className="">
-                          Don't have an account ? <Link to="/sign">Sign In</Link>
-                      </p>
-                  </div>
-            </form>
+    return (
+        <div className="form__container">
+            <div className="loginbox">
+                <img src={Avatar} alt='' className='avatar' />
+                <h1 className='title'>Sign in here</h1>
+                <form onSubmit={(event) => handleLogin(event)}>
+                    <div>
+                        <label>User Name</label>
+                        <input
+                            type='text'
+                            name='username'
+                            value={values.username}
+                            placeholder='Enter user name'
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div>
+                        <label>Password</label>
+                        <input
+                            type='password'
+                            name='password'
+                            value={values.password}
+                            placeholder='Enter password'
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div>
+                        <input type='submit' value={isLoading ? 'Login' : 'Login in...'} />
+                    </div>
+                    <div>
+                        <p className="">
+                            I Don't have an account ? <Link to="/sign">Sign in</Link>
+                        </p>
+                    </div>
+                </form>
+            </div>
+            <ToastContainer />
         </div>
-        <ToastContainer/>
-    </div>
     )
 }
 

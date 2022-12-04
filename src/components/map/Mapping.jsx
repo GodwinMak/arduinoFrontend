@@ -82,15 +82,11 @@ useEffect(() => {
   const mapContainerRef = useRef(null);
 
   // map style
-  const [value, setValue] =useState("");
-  // useEffect(() => {
+  const [value, setValue] = useState("satellite-streets-v11");
     const onChangeValue = (e) => {
-      e.preventDefault()
+      // e.preventDefault()
       setValue(e.target.value);
     }
-    // onChangeValue();
-  // }, []);
-  console.log(value)
   
   
   //Initialize map when component mounts
@@ -175,15 +171,46 @@ useEffect(() => {
   const MapChoice = ()=>{
     return(
       <div id="menu" className="menu-map-style" >
-        <input type="radio" name="satellite" value="satellite-streets-v11" checked={value === "satellite-streets-v11"} onChange={(event) => onChangeValue(event)} />
+        <input 
+          type="radio" 
+          name="satellite" 
+          value="satellite-streets-v11" 
+          checked={value === "satellite-streets-v11"} 
+          onChange={onChangeValue} 
+        />
         <label htmlFor="satellite-streets-v11">satellite</label>
-        <input type="radio" name="light" value="light-v10" checked={value === "light-v10"} onChange={(event) => onChangeValue(event)} />
+        <input 
+          type="radio" 
+          name="light" 
+          value="light-v10" 
+          checked={value === "light-v10"} 
+          onChange={onChangeValue} 
+        />
         <label htmlFor="light-v10">light</label>
-        <input type="radio" name="dark" value="dark-v10" checked={value === "dark-v10"} onChange={(event) => onChangeValue(event)} />
+        <input 
+          type="radio" 
+          name="dark" 
+          value="dark-v10" 
+          checked={value === "dark-v10"} 
+          onChange={onChangeValue} 
+
+        />
         <label htmlFor="dark-v10">dark</label>
-        <input type="radio" name="streets" value="streets-v11" checked={value === "streets-v11"} onChange={(event) => onChangeValue(event)} />
+        <input 
+          type="radio" 
+          name="streets" 
+          value="streets-v11" 
+          checked={value === "streets-v11"} 
+          onChange={onChangeValue} 
+        />
         <label htmlFor="streets-v11">streets</label>
-        <input type="radio" name="outdoors" value="outdoors-v11" checked={value === "outdoors-v11"} onChange={(event) => onChangeValue(event)} />
+        <input 
+        type="radio" 
+        name="outdoors" 
+        value="outdoors-v11" 
+        checked={value === "outdoors-v11"} 
+        onChange={onChangeValue} 
+        />
         <label htmlFor="outdoors-v11">outdoors</label>
       </div>
     )

@@ -3,11 +3,13 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import Maps from './components/map/Maps';
 import Login from "./pages/Login"
 import Sign from "./pages/Sign"
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from './pages/Dashboard';
 import AnimalList from './components/animalList/AnimalList';
 import React, { useState} from 'react'
 import {AppContext} from './components/context/appContext'
+import "react-toastify/dist/ReactToastify.css"
+import EmailVerify from './pages/EmailVerify';
 
 
 function App() {
@@ -22,6 +24,7 @@ function App() {
   const [isMaploading, setIsMaploading] = useState(false);
   const [currentUser, setCurrentUser] = useState([]);
 
+   const user = localStorage.getItem("token")
   return (
     <AppContext.Provider
       value={{
@@ -38,12 +41,18 @@ function App() {
     >      
      <BrowserRouter>
          <Routes>
-           <Route path="/" element={<Login/>}/>
-           <Route path='/sign' element={<Sign/>}/>
-           <Route path="/dashboard" element={<Dashboard/>} > 
-             <Route path= '/dashboard' element={<AnimalList/>}/>
-             <Route path='/dashboard/map' element={<Maps/>}/>
+           <Route path="/" exact element={<Login/>}/>
+           <Route path='/sign' exact element={<Sign/>}/>
+           {
+            user &&
+              
+            <Route path="/dashboard" exact element={<Dashboard/>} > 
+             <Route path= '/dashboard' exact element={<AnimalList/>}/>
+             <Route path='/dashboard/map' exact element={<Maps/>}/>
             </Route>
+          }
+          <Route path="/dashboard" exact element={<Navigate replace to='/'/>}/>
+          <Route path ="/api/v1/:id/verify/:token" element={<EmailVerify/>}/>
           </Routes>
      </BrowserRouter>
     </AppContext.Provider>

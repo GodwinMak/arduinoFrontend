@@ -22,7 +22,7 @@ const Maps = () => {
     setNewData, newData } =useContext(AppContext);
 
     // connect the front end and backend via socket.io-client
-  const socket = io.connect("https://gpsarduinoproject.herokuapp.com/api/socket");
+  const socket = io.connect("https://animaltracking.patrickmamsery.works/api/socket");
 
   //getting any new data that be posted to the server
   useEffect(() => {
@@ -72,7 +72,7 @@ const Maps = () => {
 
   const getAnimalData = async (cbsf, cbef) => {
     try {
-      const response = await fetch("https://gpsarduinoproject.herokuapp.com/api/v1/getdata", {
+      const response = await fetch("https://animaltracking.patrickmamsery.works/api/v1/getdata",{
         method: "GET",
         headers: {
           'Content-Type': 'application/json'
@@ -113,26 +113,7 @@ const Maps = () => {
       }
     }
   } 
-/*
-// all animal current state before any update
-  if(!isEmpty(newData)){
-    Animals = animalData
-  }
-*/
   return (
-    // <Container>
-    //     <div>
-    //     <h3>Tracking {rhinoName} </h3>
-    //           <Card className="text-center">
-    //               <Card.Body style={{height: "500px"}} >
-    //                 {
-    //                   // !isMaploading ? <Mapping Animal={Animal} newDataAnimal= {newDataAnimal}/> : <div>map is loading</div>
-    //                   !isMaploading ? <Mapping Animal={Animal} newDataAnimal= {newDataAnimal}/>: <ClipLoader color={"#123abc"} loading={isMaploading} size={150} />
-    //                 }
-    //               </Card.Body>
-    //           </Card>
-    //     </div>
-    // </Container>
     <>
       <div className="content-wrapper">
         <div className="content-header">
@@ -148,7 +129,6 @@ const Maps = () => {
             <Card className="text-center">
               <Card.Body style={{height: "500px"}} >
                   {
-                    // !isMaploading ? <Mapping Animal={Animal} newDataAnimal= {newDataAnimal}/> : <div>map is loading</div>
                       !isMaploading ? <Mapping Animal={Animal} newDataAnimal= {newDataAnimal}/>: <ClipLoader color={"#123abc"} loading={isMaploading} size={150} />
                     }
                   </Card.Body>

@@ -41,7 +41,7 @@ const AnimalList = () => {
 
     const getAnimalData = async (cbsf, cbef) => {
         try {
-            const response = await fetch(`https://gpsarduinoproject.herokuapp.com/api/v1/getdata`, {
+            const response = await fetch(`https://animaltracking.patrickmamsery.works/api/v1/getdata`, {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json'

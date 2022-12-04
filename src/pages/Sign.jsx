@@ -1,14 +1,14 @@
 import React, {useState} from 'react'
 import { ToastContainer, toast } from "react-toastify"
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import axios from 'axios'
 import { signRoute } from '../utills/APIRoute';
 import Avatar from '../assets/images/Avatar.png'
-
+import './login.css'
 
 
 const Sign = () => {
-    const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(true);
 
     const toastOptions = {
         position: 'bottom-right',
@@ -18,6 +18,14 @@ const Sign = () => {
         theme: 'dark',
     }
 
+    const toastOptionsSuccess ={
+        position: "top-center",
+        autoClose: 8000,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
+    }
+
     const [values, setValues] = useState({
         username: "",
         email: "",
@@ -25,9 +33,12 @@ const Sign = () => {
         confirmPassword: ""
     })
 
-    const handleChange = (event) => {
-        setValues({ ...values, [event.target.name]: event.target.value });
-
+    const handleChange = ({currentTarget: input}) => {
+        setValues({ ...values, [input.name]: input.value });
+    }
+    
+    const validateEmail = (email)=>{
+        return /\S+@\S+\.\S+/.test(email);
     }
     const handleValidation = () => {
         const { password, username, confirmPassword, email } = values;
@@ -50,26 +61,42 @@ const Sign = () => {
             );
             return false;
         }
+        else if(!validateEmail(email)){
+            toast.error(
+                "email is invalid!"
+            );
+            return false;
+        }
         return true
     }
 
+    const [error, setError]= useState("");
+    const [msg, setMsg] = useState("")
     const handleSign = async (event) => {
         event.preventDefault();
+        try {
         if (handleValidation()) {
             const { username, password, email} = values;
-            const { data } = await axios.post(signRoute, {
+            setIsLoading(false)
+            const { data: res} = await axios.post(signRoute, {
                 username,
                 email,
                 password,
             });
-            if (data.status === false) {
-                toast.error(data.msg, toastOptions)
+            setMsg(res.message);
+            
+        }
+        } catch (error) {
+            if(error.response && error.response.status >= 400 && error.response.status <= 500){
+                setError(error.response.data.message);
             }
-            if (data.status === true) {
-                localStorage.setItem('map-user', JSON.stringify(data.animalControlUser.username))
-                navigate("/dashboard");
-            }
-        };
+        }
+        if(error){
+            toast.error(error, toastOptions);
+        }
+        if(msg){
+            toast.success(msg, toastOptionsSuccess);
+        }
     }
   return (
       <div className="form__container">
@@ -78,43 +105,47 @@ const Sign = () => {
               <h1 className='title'>Sign in here</h1>
               <form onSubmit={(event) => handleSign(event)}>
                   <div>
-                      <p>User Name</p>
+                      <label>User Name</label>
                       <input
                           type='text'
                           name='username'
+                          value={values.username}
                           placeholder='Enter user name'
-                          onChange={(event) => handleChange(event)}
+                          onChange={handleChange}
                       />
                   </div>
                   <div>
-                      <p>Email</p>
+                      <label>Email</label>
                       <input
                           type='email'
                           name='email'
+                          value = {values.email}
                           placeholder='Enter Your Email'
-                          onChange={(event) => handleChange(event)}
+                          onChange={ handleChange}
                       />
                   </div>
                   <div>
-                      <p>Password</p>
+                      <label>Password</label>
                       <input
                           type='password'
                           name='password'
+                          value = {values.password}
                           placeholder='Enter password'
-                          onChange={(event) => handleChange(event)}
+                          onChange={handleChange}
                       />
                   </div>
                   <div>
-                      <p>Confrim Password</p>
+                      <label>Confrim Password</label>
                       <input
                           type='password'
                           name='confirmPassword'
+                          value = {values.confirmPassword}
                           placeholder='Confirm password'
-                          onChange={(event) => handleChange(event)}
+                          onChange={ handleChange}
                       />
                   </div>
                   <div>
-                      <input type='submit' value='Sign in' />
+                    <input type='submit' value={isLoading ? 'Sign in' : 'Sign in...'} />
                   </div>
                   <div>
                       <p className="">
