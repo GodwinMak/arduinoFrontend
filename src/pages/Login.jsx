@@ -55,7 +55,7 @@ const Login = () => {
                     password,
                 });
                 localStorage.setItem("token", res.data);
-                console.log(res.data);
+                // console.log(res.data);
                 localStorage.setItem("user", username);
                 window.location ="/dashboard"
             }

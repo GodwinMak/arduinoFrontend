@@ -84,6 +84,10 @@ const Sign = () => {
                 password,
             });
             setMsg(res.message);
+            localStorage.setItem("token", res.data);
+            // console.log(res.data);
+            localStorage.setItem("user", username);
+            window.location = "/dashboard"
             
         }
         } catch (error) {
