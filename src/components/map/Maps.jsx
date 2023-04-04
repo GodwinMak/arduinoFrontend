@@ -127,7 +127,7 @@ const Maps = () => {
           <section className='content'>
             <div className='container-fluid'>
             <Card className="text-center">
-              <Card.Body style={{height: "500px"}} >
+              <Card.Body style={{height: "500px", width: '100%'}} >
                   {
                       !isMaploading ? <Mapping Animal={Animal} newDataAnimal= {newDataAnimal}/>: <ClipLoader color={"#123abc"} loading={isMaploading} size={150} />
                     }

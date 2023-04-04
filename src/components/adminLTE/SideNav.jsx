@@ -27,7 +27,7 @@ const SideNav = () => {
 
   return (
     <div>
-        <aside className="main-sidebar sidebar-dark-primary elevation-4">
+        <aside className="main-sidebar sidebar-dark-primary elevation-4 sidebar-collapse">
         {/* Brand Logo */}
         <a href="!#" className="brand-link">
             <span className="brand-text font-weight-light">Animal Tracking</span>

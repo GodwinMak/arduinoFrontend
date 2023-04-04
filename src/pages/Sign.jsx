@@ -5,6 +5,7 @@ import axios from 'axios'
 import { signRoute } from '../utills/APIRoute';
 import Avatar from '../assets/images/Avatar.png'
 import './login.css'
+import EmailVerificationMsg from './EmailVerificationMsg';
 
 
 const Sign = () => {
@@ -18,13 +19,13 @@ const Sign = () => {
         theme: 'dark',
     }
 
-    const toastOptionsSuccess ={
-        position: "top-center",
-        autoClose: 8000,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "light",
-    }
+    // const toastOptionsSuccess ={
+    //     position: "top-center",
+    //     autoClose: 8000,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     theme: "light",
+    // }
 
     const [values, setValues] = useState({
         username: "",
@@ -71,7 +72,8 @@ const Sign = () => {
     }
 
     const [error, setError]= useState("");
-    const [msg, setMsg] = useState("")
+    const [msg, setMsg] = useState("");
+    const [status, setStatus] = useState(false);
     const handleSign = async (event) => {
         event.preventDefault();
         try {
@@ -84,10 +86,11 @@ const Sign = () => {
                 password,
             });
             setMsg(res.message);
-            localStorage.setItem("token", res.data);
-            // console.log(res.data);
-            localStorage.setItem("user", username);
-            window.location = "/dashboard"
+            setStatus(res.status)
+            // localStorage.setItem("token", res.data);
+            // // console.log(res.data);
+            // localStorage.setItem("user", username);
+            // window.location = "/dashboard"
             
         }
         } catch (error) {
@@ -98,68 +101,70 @@ const Sign = () => {
         if(error){
             toast.error(error, toastOptions);
         }
-        if(msg){
-            toast.success(msg, toastOptionsSuccess);
-        }
+        
     }
   return (
-      <div className="form__container">
-          <div className="loginbox">
-              <img src={Avatar} alt='' className='avatar' />
-              <h1 className='title'>Sign in here</h1>
-              <form onSubmit={(event) => handleSign(event)}>
-                  <div>
-                      <label>User Name</label>
-                      <input
-                          type='text'
-                          name='username'
-                          value={values.username}
-                          placeholder='Enter user name'
-                          onChange={handleChange}
-                      />
-                  </div>
-                  <div>
-                      <label>Email</label>
-                      <input
-                          type='email'
-                          name='email'
-                          value = {values.email}
-                          placeholder='Enter Your Email'
-                          onChange={ handleChange}
-                      />
-                  </div>
-                  <div>
-                      <label>Password</label>
-                      <input
-                          type='password'
-                          name='password'
-                          value = {values.password}
-                          placeholder='Enter password'
-                          onChange={handleChange}
-                      />
-                  </div>
-                  <div>
-                      <label>Confrim Password</label>
-                      <input
-                          type='password'
-                          name='confirmPassword'
-                          value = {values.confirmPassword}
-                          placeholder='Confirm password'
-                          onChange={ handleChange}
-                      />
-                  </div>
-                  <div>
-                    <input type='submit' value={isLoading ? 'Sign in' : 'Sign in...'} />
-                  </div>
-                  <div>
-                      <p className="">
-                          I have an account ? <Link to="/">Login</Link>
-                      </p>
-                  </div>
-              </form>
-          </div>
-          <ToastContainer />
-      </div>
+    <>
+        { !status ?
+        <div className="form__container">
+            <div className="loginbox">
+                <img src={Avatar} alt='' className='avatar' />
+                <h1 className='title'>Sign in here</h1>
+                <form onSubmit={(event) => handleSign(event)}>
+                    <div>
+                        <label>User Name</label>
+                        <input
+                            type='text'
+                            name='username'
+                            value={values.username}
+                            placeholder='Enter user name'
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div>
+                        <label>Email</label>
+                        <input
+                            type='email'
+                            name='email'
+                            value = {values.email}
+                            placeholder='Enter Your Email'
+                            onChange={ handleChange}
+                        />
+                    </div>
+                    <div>
+                        <label>Password</label>
+                        <input
+                            type='password'
+                            name='password'
+                            value = {values.password}
+                            placeholder='Enter password'
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div>
+                        <label>Confrim Password</label>
+                        <input
+                            type='password'
+                            name='confirmPassword'
+                            value = {values.confirmPassword}
+                            placeholder='Confirm password'
+                            onChange={ handleChange}
+                        />
+                    </div>
+                    <div>
+                        <input type='submit' value={isLoading ? 'Sign in' : 'Sign in...'} />
+                    </div>
+                    <div>
+                        <p className="">
+                            I have an account ? <Link to="/">Login</Link>
+                        </p>
+                    </div>
+                </form>
+            </div>
+            <ToastContainer />
+        </div> : <EmailVerificationMsg msg={msg}/>
+        }
+    </> 
   )
 }
 
