@@ -10,6 +10,9 @@ import React, { useState} from 'react'
 import {AppContext} from './components/context/appContext'
 import "react-toastify/dist/ReactToastify.css"
 import EmailVerify from './pages/EmailVerify';
+import HeatMap from './components/map/HeatMap';
+import LineMap from './components/map/LineMap';
+// import TimeSlider from './components/map/TimeSlider';
 
 
 function App() {
@@ -49,6 +52,9 @@ function App() {
             <Route path="/dashboard" exact element={<Dashboard/>} > 
              <Route path= '/dashboard' exact element={<AnimalList/>}/>
              <Route path='/dashboard/map' exact element={<Maps/>}/>
+             <Route path='/dashboard/heatMap' exact element={<HeatMap/>}/>
+             <Route path='/dashboard/linemap' exact element={<LineMap/>}/>
+              {/* <Route path='/dashboard/timeslider' exact element={<TimeSlider/>}/> */}
             </Route>
           }
           <Route path="/dashboard" exact element={<Navigate replace to='/'/>}/>

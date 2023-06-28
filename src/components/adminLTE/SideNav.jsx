@@ -3,6 +3,12 @@ import { Link } from "react-router-dom"
 import avatar2 from '../../assets/images/avatar2.png'
 import { AppContext }from '../context/appContext'
 import {AiOutlineLogout} from "react-icons/ai"
+import {FcHeatMap} from 'react-icons/fc'
+// import {BiSliderAlt} from 'react-icons/bi'
+import {BsMapFill} from 'react-icons/bs'
+
+
+
 const SideNav = () => {
     const { setCurrentUser, currentUser } = useContext(AppContext);
 
@@ -57,7 +63,30 @@ const SideNav = () => {
                     </p>
                 </Link>
                 </li>
-
+                <li className='nav-item'>
+                  <Link to='/dashboard/heatMap' className='nav-link'
+                      // onClick={()=> setShowSidebar(!showSidebar)}
+                  >
+                      <FcHeatMap className='nav-icon'/>
+                      <p>Heat Map</p>
+                  </Link>
+                </li>
+                 {/* <li className='nav-item'>
+                    <Link to='/dashboard/timeslider' className='nav-link'
+                        onClick={()=> setShowSidebar(!showSidebar)}
+                    >
+                        <BiSliderAlt className='nav-icon'/>
+                        <p>TIme Slider Map</p>
+                    </Link>
+                </li> */}
+                <li className='nav-item'>
+                  <Link to='/dashboard/linemap' className='nav-link'
+                      // onClick={()=> setShowSidebar(!showSidebar)}
+                  >
+                      <BsMapFill className='nav-icon'/>
+                      <p>Movement Partten Map</p>
+                  </Link>
+              </li>
                 <li className="nav-item">
                 <Link to="#" className="nav-link" onClickCapture={handleClick}>
                     <AiOutlineLogout className='nav-icon' style={{postion: "absolute", buttom: "0"}}/>
