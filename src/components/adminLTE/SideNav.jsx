@@ -6,6 +6,8 @@ import {AiOutlineLogout} from "react-icons/ai"
 import {FcHeatMap} from 'react-icons/fc'
 // import {BiSliderAlt} from 'react-icons/bi'
 import {BsMapFill} from 'react-icons/bs'
+import {IoIosTime} from 'react-icons/io'
+
 
 
 
@@ -62,6 +64,14 @@ const SideNav = () => {
                     Animal List
                     </p>
                 </Link>
+                </li>
+                <li className='nav-item'>
+                  <Link to='/dashboard/realtime' className='nav-link'
+                      // onClick={()=> setShowSidebar(!showSidebar)}
+                  >
+                      <IoIosTime className='nav-icon'/>
+                      <p>Real time</p>
+                  </Link>
                 </li>
                 <li className='nav-item'>
                   <Link to='/dashboard/heatMap' className='nav-link'
